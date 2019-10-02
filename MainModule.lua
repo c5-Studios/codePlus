@@ -1,7 +1,7 @@
 --// Place this in ReplicatedStorage
 
 --// Find instructions at https://github.com/c5-Studios/codePlus
---// 
+--// To see what an individual function does, you can scroll down and read the comments!
 --// Find legal information at https://github.com/c5-Studios/codePlus/blob/master/LEGAL
 
 --// DO NOT EDIT ANY CODE BELOW WITHOUT FIRST READING LEGAL DOCUMENTATION //--
@@ -12,6 +12,9 @@ local codePlusModule
 
 do -- Find all functions here
 	local cp = {}
+	
+	
+	--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--
 	
 	cp.kill = function(o) --// SERVER // Must kill a player, character, or humanoid
 		local hum = o
@@ -32,6 +35,9 @@ do -- Find all functions here
 		
 		return (format >= 0.5 and f+1) or f
 	end
+	
+	--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--
+	
 	
 	codePlusModule = cp
 end
