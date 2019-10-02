@@ -30,10 +30,13 @@ do -- Find all functions here
 	
 	cp.round = function(n) --// SHARED // Must be a number of some sort
 		-- Rounds a number to the nearest whole
-		local f = math.ceil(n)
+		local f = math.floor(n)
 		local format = n-f
 		
 		return (format >= 0.5 and f+1) or f
+	end
+	
+	cp.letter = function() --// SHARED // No input. Returns a random letter
 	end
 	
 	--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--
