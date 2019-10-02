@@ -1,2 +1,2 @@
--- Place this in ReplicatedStorage
--- 
+--// Place this in ReplicatedStorage
+--// Find instructions at https://github.com/c5-Studios/codePlus
