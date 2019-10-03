@@ -37,7 +37,33 @@ do -- Find all functions here
 	end
 	
 	cp.letter = function() --// SHARED // No input. Returns a random letter
+		local letters = {"a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"}
+		local cap = math.random(1,2) == 1
+		
+		return (cap == true and string.upper(letters[math.random(1,#letters)])) or letters[math.random(1,#letters)]
 	end
+	
+	cp.dmg = function(o,damage) --// SERVER // Must damage a player, character, or humanoid
+		local hum = o
+		if o:IsA("Model") then
+			hum = o:FindFirstChildOfClass("Humanoid")
+		elseif o:IsA("Player") then
+			local char = o.Character or o.CharacterAdded:Wait()
+			local hum = char:WaitForChild("Humanoid")
+		end
+		
+		hum:TakeDamage(damage)
+	end
+	
+	cp.fix_random = function() --// SHARED // No input. Fixes the math.random() function when it keeps picking the same number
+		local seed = os.time() * tick() * math.random(1,10000)
+		math.randomseed(seed)
+		for i = 1,157 do
+			local _ = math.random()
+		end
+	end
+	
+	
 	
 	--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--
 	
