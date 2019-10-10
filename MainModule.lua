@@ -63,7 +63,30 @@ do -- Find all functions here
 		end
 	end
 	
+	cp.get_alive = function(include_npcs) --// SHARED // Returns a table of alive player characters (and npcs under workspace if desired)
+		if include_npcs == nil then
+			include_npcs = false
+		end
+		
+		local alive = {}
+		for i,v in pairs(workspace:GetChildren()) do
+			local hum = v:FindFirstChildOfClass("Humanoid")
+			if hum == nil or hum.Health < 1 then
+				return
+			end
+			if include_npcs == false and game.Players:FindFirstChild(v.Name) == nil then
+				return
+			end
+			
+			table.insert(alive,v)
+		end
+	end
 	
+	cp.set_screen_text = function(message,time,Font,TextSize) --// SHARED // Displays a message on the screen with a given amount of time. Font and TextSize is optional
+		local ui = Instance.new("ScreenGui")
+		ui.ResetOnSpawn = false
+		game:GetService("Debris"):AddItem(ui,time)
+	end
 	
 	--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--
 	
