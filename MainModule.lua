@@ -85,7 +85,25 @@ do -- Find all functions here
 	cp.set_screen_text = function(message,time,Font,TextSize) --// SHARED // Displays a message on the screen with a given amount of time. Font and TextSize is optional
 		local ui = Instance.new("ScreenGui")
 		ui.ResetOnSpawn = false
-		game:GetService("Debris"):AddItem(ui,time)
+		local text = Instance.new("TextLabel",ui)
+		text.Text = message or "Sample Text"
+		text.Font = Font or Enum.Font.SourceSansLight
+		text.TextSize = TextSize or 24
+		text.Size = Udim2.new(1,0,1,0)
+		text.BackgroundTransparency = 1
+		local isLocal = game.Players.LocalPlayer ~= nil
+		
+		if isLocal then
+			ui.Parent = game.Players.LocalPlayer.PlayerGui
+			game:GetService("Debris"):AddItem(ui,time or 3)
+		else
+			for i,v in pairs(game.Players:GetChildren()) do
+				local ui = ui:Clone()
+				ui.Parent = v.PlayerGui
+				game:GetService("Debris"):AddItem(ui,time or 3)
+			end
+			ui:Destroy()
+		end
 	end
 	
 	--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--
