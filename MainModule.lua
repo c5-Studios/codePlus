@@ -16,7 +16,7 @@ do -- Find all functions here
 	
 	--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--
 	
-	cp.kill = function(o) --// SERVER // Must kill a player, character, or humanoid
+	function cp:kill(o) --// SERVER // Must kill a player, character, or humanoid
 		local hum = o
 		if o:IsA("Model") then
 			hum = o:FindFirstChildOfClass("Humanoid")
@@ -28,7 +28,7 @@ do -- Find all functions here
 		hum.Health = 0
 	end
 	
-	cp.round = function(n) --// SHARED // Must be a number of some sort
+	function cp:round(n) --// SHARED // Must be a number of some sort
 		-- Rounds a number to the nearest whole
 		local f = math.floor(n)
 		local format = n-f
@@ -36,14 +36,14 @@ do -- Find all functions here
 		return (format >= 0.5 and f+1) or f
 	end
 	
-	cp.letter = function() --// SHARED // No input. Returns a random letter
+	function cp:get_letter() --// SHARED // No input. Returns a random letter
 		local letters = {"a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"}
 		local cap = math.random(1,2) == 1
 		
 		return (cap == true and string.upper(letters[math.random(1,#letters)])) or letters[math.random(1,#letters)]
 	end
 	
-	cp.dmg = function(o,damage) --// SERVER // Must damage a player, character, or humanoid
+	function cp:dmg(o,damage) --// SERVER // Must damage a player, character, or humanoid
 		local hum = o
 		if o:IsA("Model") then
 			hum = o:FindFirstChildOfClass("Humanoid")
@@ -55,7 +55,7 @@ do -- Find all functions here
 		hum:TakeDamage(damage)
 	end
 	
-	cp.fix_random = function() --// SHARED // No input. Fixes the math.random() function when it keeps picking the same number
+	function cp:fix_random() --// SHARED // No input. Fixes the math.random() function when it keeps picking the same number
 		local seed = os.time() * tick() * math.random(1,10000)
 		math.randomseed(seed)
 		for i = 1,157 do
@@ -63,7 +63,7 @@ do -- Find all functions here
 		end
 	end
 	
-	cp.get_alive = function(include_npcs) --// SHARED // Returns a table of alive player characters (and npcs under workspace if desired)
+	function cp:get_alive(include_npcs) --// SHARED // Returns a table of alive player characters (and npcs under workspace if desired)
 		if include_npcs == nil then
 			include_npcs = false
 		end
@@ -82,7 +82,7 @@ do -- Find all functions here
 		end
 	end
 	
-	cp.set_screen_text = function(message,time,Font,TextSize) --// SHARED // Displays a message on the screen with a given amount of time. Font and TextSize is optional
+	function cp:set_screen_text(message,time,Font,TextSize) --// SHARED // Displays a message on the screen with a given amount of time. Font and TextSize is optional
 		local ui = Instance.new("ScreenGui")
 		ui.ResetOnSpawn = false
 		local text = Instance.new("TextLabel",ui)
@@ -91,7 +91,7 @@ do -- Find all functions here
 		text.TextSize = TextSize or 24
 		text.Size = Udim2.new(1,0,1,0)
 		text.BackgroundTransparency = 1
-		local isLocal = game.Players.LocalPlayer ~= nil
+		local isLocal = game:GetService("RunService"):IsClient()
 		
 		if isLocal then
 			ui.Parent = game.Players.LocalPlayer.PlayerGui
@@ -103,6 +103,58 @@ do -- Find all functions here
 				game:GetService("Debris"):AddItem(ui,time or 3)
 			end
 			ui:Destroy()
+		end
+	end
+	
+	function cp:tele(o,pos) --// SHARED // Must teleport a player, character, or humanoid. Position can be either a Vector or CFrame
+		local char = o
+		if o:IsA("Humanoid") then
+			char = o.Parent
+		elseif o:IsA("Player") then
+			o.Character or o.CharacterAdded:Wait()
+		end
+		
+		local root = char:WaitForChild("HumanoidRootPart")
+		pos = (typeof(pos) == "Vector3" and CFrame.new(pos)) or pos
+		
+		root.CFrame = pos
+	end
+	
+	function cp:connect_remote(remote,func) -- // SHARED // Connects a function to a RemoteEvent or RemoteFunction
+		local isLocal = game:GetService("RunService"):IsClient()
+		local isFunc = remote:IsA("RemoteFunction")
+		
+		if isFunc then
+			if isLocal then
+				remote.OnClientInvoke = func
+			else
+				remote.OnServerInvoke = func
+			end
+		else
+			if isLocal then
+				remote.OnClientEvent:Connect(func)
+			else
+				remote.OnServerEvent:Connect(func)
+			end
+		end
+	end
+	
+	function cp:fire_remote(remote,...) -- // SHARED // Fires/Invokes values to a RemoteEvent or RemoteFunction
+		local isLocal = game:GetService("RunService"):IsClient()
+		local isFunc = remote:IsA("RemoteFunction")
+		
+		if isFunc then
+			if isLocal then
+				remote:InvokeServer(...)
+			else
+				remote:InvokeAllClients(...)
+			end
+		else
+			if isLocal then
+				remote:FireServer(...)
+			else
+				remote:FireAllClients(...)
+			end
 		end
 	end
 	
