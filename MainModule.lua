@@ -8,13 +8,7 @@
 --// FAILURE TO FOLLOW LEGAL TERMS CAN RESULT IN A TERMINATION OF THE PLACE CONTAINING CODEPLUS //--
 
 
-local codePlusModule
-
-do -- Find all functions here
-	local cp = {}
-	
-	
-	--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--
+return { -- Don't remove this
 	
 	function cp:kill(o) --// SERVER // Must kill a player, character, or humanoid
 		local hum = o
@@ -158,10 +152,4 @@ do -- Find all functions here
 		end
 	end
 	
-	--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--
-	
-	
-	codePlusModule = cp
-end
-
-return codePlusModule
+} -- Don't remove this
