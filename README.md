@@ -29,5 +29,5 @@ If you have the plugin, you don't have to worry: it will install codePlus into e
 
 **Using a codePlus userdata (functions, values, etc.)**
 - To use a variable, use cp.VariableName. You can change the values in it as well!
-- To use a function, use cp.FunctionName(args) or cp:FunctionName(args) ([depends on function used]). To change and customize the function, do cp.FunctionName = function()
+- To use a function, use cp.FunctionName(args) or cp:FunctionName(args) [depends on function used]. To change and customize the function, do cp.FunctionName = function()
 - And so forth and so on. Every other userdata can be referenced by the variable method.
