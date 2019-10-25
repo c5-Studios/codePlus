@@ -12,19 +12,22 @@ Additional functions and variables that can be used in Roblox scripts
 1. Copy the code from `MainModule.lua` into a module script under `game.ReplicatedStorage`
 2. Name the module script *codePlus_Main*
 
-**Adding it to your game with SharedSystem**
-1. Download the SharedSystem plugin into Roblox Studio, if not already done
-2. In the command bar, type `shared.codePlus_Update()`
+**Adding it to your game with the plugin**
+1. Download the *codePlus* plugin into Roblox Studio, if not already done
+2. Press the plugin button, labeled "iGottic's codePlus"
 
 ## Usage
 
 > Note: Some functions may be used only by local scripts, some only by server scripts; the remaining functions can be shared universally. Keep this in mind when referencing the functions.
 
-**Installing codePlus into a script**
+**Installing codePlus into a script manually**
 Installation is super easy. At the beginning of a script, type:
 `local cp = require(game.ReplicatedStorage:WaitForChild("codePlus_Main"))`
 
+**Installing codePlus into a script with plugin**
+If you have the plugin, you don't have to worry: it will install codePlus into every script created!
+
 **Using a codePlus userdata (functions, values, etc.)**
 - To use a variable, use cp.VariableName. You can change the values in it as well!
-- To use a function, use cp.FunctionName(args) or cp:FunctionName(args). To change the function, do cp.FunctionName = function()
+- To use a function, use cp.FunctionName(args) or cp:FunctionName(args) ([depends on function used]). To change and customize the function, do cp.FunctionName = function()
 - And so forth and so on. Every other userdata can be referenced by the variable method.
