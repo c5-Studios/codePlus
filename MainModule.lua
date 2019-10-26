@@ -64,30 +64,40 @@ do --// Don't remove this!
 		end
 		
 		local alive = {}
-		for i,v in pairs(workspace:GetChildren()) do
-			local hum = v:FindFirstChildOfClass("Humanoid")
-			if hum == nil or hum.Health < 1 then
-				return
+		local function Scan()
+			for i,v in pairs(workspace:GetChildren()) do
+				local hum = v:FindFirstChildOfClass("Humanoid")
+				if hum == nil or hum.Health < 1 then
+					--
+				else
+					if include_npcs == false then
+						if game.Players:FindFirstChild(v.Name) ~= nil then
+							table.insert(alive,v)
+						end
+					else
+						table.insert(alive,v)
+					end
+				end
 			end
-			if include_npcs == false and game.Players:FindFirstChild(v.Name) == nil then
-				return
-			end
-			
-			table.insert(alive,v)
 		end
+		
+		Scan()
 		
 		return alive, (alive ~= nil and #alive) or 0
 	end
 	
-	function cp:set_screen_text(message,time,Font,TextSize) --// SHARED // Displays a message on the screen with a given amount of time. Font and TextSize is optional
+	function cp:message(message,time,Font,TextSize,color,stroke,strokeColor) --// SHARED // Displays a message on the screen with a given amount of time. Font and TextSize is optional
 		local ui = Instance.new("ScreenGui")
 		ui.ResetOnSpawn = false
 		local text = Instance.new("TextLabel",ui)
 		text.Text = message or "Sample Text"
 		text.Font = Font or Enum.Font.SourceSansLight
-		text.TextSize = TextSize or 24
+		text.TextSize = TextSize or 34
 		text.Size = UDim2.new(1,0,1,0)
 		text.BackgroundTransparency = 1
+		text.TextColor3 = color or Color3.fromRGB(255,255,255)
+		text.TextStrokeColor3 = strokeColor or Color3.fromRGB(0,0,0)
+		text.TextStrokeTransparency = stroke or 0.5
 		local isLocal = game:GetService("RunService"):IsClient()
 		
 		if isLocal then
@@ -108,7 +118,7 @@ do --// Don't remove this!
 		if o:IsA("Humanoid") then
 			char = o.Parent
 		elseif o:IsA("Player") then
-			o.Character or o.CharacterAdded:Wait()
+			char = o.Character or o.CharacterAdded:Wait()
 		end
 		
 		local root = char:WaitForChild("HumanoidRootPart")
