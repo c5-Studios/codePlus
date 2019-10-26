@@ -7,9 +7,9 @@
 --// DO NOT EDIT ANY CODE BELOW WITHOUT FIRST READING LEGAL DOCUMENTATION //--
 --// FAILURE TO FOLLOW LEGAL TERMS CAN RESULT IN A TERMINATION OF THE PLACE CONTAINING CODEPLUS //--
 
+local cp = {}
 
-return { -- Don't remove this
-	
+do
 	function cp:kill(o) --// SERVER // Must kill a player, character, or humanoid
 		local hum = o
 		if o:IsA("Model") then
@@ -151,5 +151,6 @@ return { -- Don't remove this
 			end
 		end
 	end
-	
-} -- Don't remove this
+end
+
+return cp
