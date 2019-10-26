@@ -17,7 +17,7 @@ do --// Don't remove this!
 			hum = o:FindFirstChildOfClass("Humanoid")
 		elseif o:IsA("Player") then
 			local char = o.Character or o.CharacterAdded:Wait()
-			local hum = char:WaitForChild("Humanoid")
+			hum = char:WaitForChild("Humanoid")
 		end
 		
 		hum.Health = 0
@@ -44,7 +44,7 @@ do --// Don't remove this!
 			hum = o:FindFirstChildOfClass("Humanoid")
 		elseif o:IsA("Player") then
 			local char = o.Character or o.CharacterAdded:Wait()
-			local hum = char:WaitForChild("Humanoid")
+			hum = char:WaitForChild("Humanoid")
 		end
 		
 		hum:TakeDamage(damage)
@@ -75,6 +75,8 @@ do --// Don't remove this!
 			
 			table.insert(alive,v)
 		end
+		
+		return alive, (alive ~= nil and #alive) or 0
 	end
 	
 	function cp:set_screen_text(message,time,Font,TextSize) --// SHARED // Displays a message on the screen with a given amount of time. Font and TextSize is optional
@@ -84,7 +86,7 @@ do --// Don't remove this!
 		text.Text = message or "Sample Text"
 		text.Font = Font or Enum.Font.SourceSansLight
 		text.TextSize = TextSize or 24
-		text.Size = Udim2.new(1,0,1,0)
+		text.Size = UDim2.new(1,0,1,0)
 		text.BackgroundTransparency = 1
 		local isLocal = game:GetService("RunService"):IsClient()
 		
