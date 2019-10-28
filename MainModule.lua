@@ -165,6 +165,39 @@ do --// Don't remove this!
 		end
 	end
 	
+	function cp:get_closest_player(char,include_npcs,max_distance) --// SHARED // Best used for npcs. Finds the closest player character (or NPC, if desired) from the character inputted.
+		local c = workspace:GetChildren()
+		local clos_dis = max_distance or math.huge
+		local clos_char = nil
+		local myRoot = char:WaitForChild("HumanoidRootPart").Position
+		
+		local function calculate(c)
+			local root = c:FindFirstChild("HumanoidRootPart")
+			local dis = (myRoot - root.Position).Magnitude
+			
+			if dis <= clos_dis then
+				clos_char = c
+				clos_dis = dis
+			end
+			
+			return
+		end
+		
+		for i,v in pairs(c) do
+			if include_npcs then
+				if c:FindFirstChildOfClass("Humanoid") then
+					calculate(v)
+				end
+			else
+				if game.Players:FindFirstChild(c.Name) then
+					calculate(v)
+				end
+			end
+		end
+		
+		return close_char,close_dis
+	end
+	
 end --// Don't remove this!
 
 return cp --// Don't remove this!
