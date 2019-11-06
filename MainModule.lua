@@ -195,7 +195,7 @@ do --// Don't remove this!
 			end
 		end
 		
-		return close_char,close_dis
+		return clos_char,clos_dis
 	end
 	
 	function cp:playSFX(sound_name,optionalPart,optionalVolume) --// SHARED // Play a sound effect already defined in this function
