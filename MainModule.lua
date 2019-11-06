@@ -198,6 +198,23 @@ do --// Don't remove this!
 		return close_char,close_dis
 	end
 	
+	function cp:playSFX(sound_name,optionalPart,optionalVolume) --// SHARED // Play a sound effect already defined in this function
+		local sounds = { -- Everything here is lowercase, and may contain underscores or spaces!
+			["gun_fire"] = 0,
+			["gun_reload"] = 0,
+			["oof"] = 0,
+			["tick"] = 0,
+			["hurt"] = 0,
+			["jumpscare_1"] = 0,
+			["jumpscare_2"] = 0,
+			["event"] = 0,
+			["bell"] = 0,
+			["ding"] = 0,
+			["click"] = 0,
+		}
+		--// See the above table for sound names!
+	end
+	
 end --// Don't remove this!
 
 return cp --// Don't remove this!
