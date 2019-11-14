@@ -172,6 +172,10 @@ do --// Don't remove this!
 		local myRoot = char:WaitForChild("HumanoidRootPart").Position
 		
 		local function calculate(c)
+			if c == char then
+				return
+			end
+			
 			local root = c:FindFirstChild("HumanoidRootPart")
 			local dis = (myRoot - root.Position).Magnitude
 			
@@ -185,11 +189,11 @@ do --// Don't remove this!
 		
 		for i,v in pairs(c) do
 			if include_npcs then
-				if c:FindFirstChildOfClass("Humanoid") then
+				if v:FindFirstChildOfClass("Humanoid") then
 					calculate(v)
 				end
 			else
-				if game.Players:FindFirstChild(c.Name) then
+				if game.Players:FindFirstChild(v.Name) then
 					calculate(v)
 				end
 			end
