@@ -202,7 +202,7 @@ do --// Don't remove this!
 		return clos_char,clos_dis
 	end
 	
-	function cp:playSFX(sound_name,optionalPart,optionalVolume) --// SHARED // Play a sound effect already defined in this function
+	--[[function cp:playSFX(sound_name,optionalPart,optionalVolume) --// SHARED // Play a sound effect already defined in this function
 		local sounds = { -- Everything here is lowercase, and may contain underscores or spaces!
 			["gun_fire"] = 0,
 			["gun_reload"] = 0,
@@ -217,6 +217,17 @@ do --// Don't remove this!
 			["click"] = 0,
 		}
 		--// See the above table for sound names!
+	end]]
+
+	function getDecendantsOfType(className,objectCheck) --// SHARED // Returns a table of objects that match the class AND are located under the specified parent.
+		local gud = {}
+		for _,v in pairs(objectCheck:GetDescendants()) do
+			if v:IsA(className) then
+				table.insert(gud,v)
+			end
+		end
+
+		return gud
 	end
 	
 end --// Don't remove this!
