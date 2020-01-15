@@ -3,4 +3,6 @@
 
 ---
 
-## cp
+**cp:kill(target)**
+*Server*
+`Target` 
